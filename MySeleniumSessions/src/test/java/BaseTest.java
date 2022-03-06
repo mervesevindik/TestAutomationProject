@@ -1,0 +1,29 @@
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class) //Sırayla çalışması için
+public class BaseTest {
+	
+	static WebDriver driver;
+	
+	@BeforeAll
+	public static void setUp() {
+		WebDriverManager.chromedriver().setup();
+		driver=new ChromeDriver();
+		driver.get("https://www.amazon.com.tr/");
+		driver.manage().window().maximize();
+		
+	}
+	@AfterAll
+    public void tearDown() { //driverı kapatsın//
+    	driver.quit();
+    }
+}
